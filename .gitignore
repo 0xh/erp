@@ -1,0 +1,27 @@
+/node_modules
+/public/uploads
+/vendor
+/.idea
+/.vscode
+/.svn
+Homestead.json
+Homestead.yaml
+composer.lock
+phpunit.xml
+
+# Laravel 5 & Lumen specific
+Modules
+tests
+bootstrap/cache/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing/*
+storage/logs/*
+storage/app/public/*
+.env.*.php
+.env.php
+.env
+
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+.rocketeer/
