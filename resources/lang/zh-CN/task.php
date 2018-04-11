@@ -40,6 +40,7 @@ return [
     'user_id' => '责任人',
     'informed' => '相关人',
     'hours' => '工时',
+    'time_limit' => '工期',
     'project_id' => '所属项目',
     'product_id' => '关联产品',
 
@@ -296,6 +297,7 @@ return [
     'Task Comments'=>'任务评价管理',
     'Task Statuses'=>'任务状态管理',
     'Task Type Eavs'=>'任务属性管理',
+    'Please Enter...' => '请输入...',
 
     //tasktypes
     'Width'=>'宽度',
@@ -349,13 +351,12 @@ return [
     'Template'=>'模板',
     'Import'=>'批量导入',
     'Action'=>'操作',
-    'create'=>'新建',
-    'show' =>'详情',
+    'Create'=>'新建',
+    'Show' =>'详情',
     'Products'=>'产品信息',
     'Cancel'=>'取消',
     'Save'=>'保存',
     'Add New'=>'新建',
-    'edit'=>'修改',
     'Edit'=>'编辑',
     'Back'=>'返回',
     'Submit'=>'提交',
