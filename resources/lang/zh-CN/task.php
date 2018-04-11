@@ -32,8 +32,8 @@ return [
     'name' => '名称',
     'title' => '主题',
     'content' => '详情',
-    'taskstatus_id' => '任务状态',
-    'tasktype_id' => '任务类型',
+    'status_id' => '任务状态',
+    'type_id' => '任务类型',
     'created_at' => '创建时间',
     'updated_at' => '更新时间',
     'end_at' => '处理时间',
@@ -65,8 +65,8 @@ return [
 
     //Taskgroup
     'task_id' => '任务',
-    'taskstatus'=>'任务状态',
-    'tasktype'=>'任务类型',
+    'status'=>'任务状态',
+    'type'=>'任务类型',
     'users'=>'任务归属人',
     'assigned'=>'当前负责人',
     'project'=>'所属项目',
@@ -136,7 +136,7 @@ return [
     'context'=>'详情',
     'bentity_id'=>'业务名称',
     'bentity_name'=>'业务名称',
-    'tasktypes_id'=>'任务类型',
+    'types_id'=>'任务类型',
 
 
 
@@ -285,17 +285,17 @@ return [
     'Ask'=>'请求',
     'Handling/Assistance'=>'处理/协助',
     'Task Title:'=>'任务概要：',
-    'Tasktype'=>'任务分类',
-    'Taskgroup'=>'团队任务',
+    'Task Type'=>'任务分类',
+    'Task Group'=>'团队任务',
     'Updated At'=>'更新时间：',
-    'Taskcomment'=>'任务评价',
-    'Taskstatus'=>'任务状态',
-    'Tasktype Eav'=>'任务属性',
-    'Tasktypes'=>'任务分类管理',
-    'Taskgroups'=>'团队任务列表',
-    'Taskcomments'=>'任务评价管理',
-    'Taskstatuses'=>'任务状态管理',
-    'Tasktype Eavs'=>'任务属性管理',
+    'Task Comment'=>'任务评价',
+    'Task Status'=>'任务状态',
+    'Task Type Eav'=>'任务属性',
+    'Task Types'=>'任务分类管理',
+    'Task Groups'=>'团队任务列表',
+    'Task Comments'=>'任务评价管理',
+    'Task Statuses'=>'任务状态管理',
+    'Task Type Eavs'=>'任务属性管理',
 
     //tasktypes
     'Width'=>'宽度',
