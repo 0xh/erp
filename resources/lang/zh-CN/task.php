@@ -71,7 +71,7 @@ return [
     'users'=>'任务归属人',
     'assigned'=>'当前负责人',
     'project'=>'所属项目',
-    'price'=>'分享值',
+    'price'=>'价值',
     'comment'=>'评价',
 
     //Taskcomments
