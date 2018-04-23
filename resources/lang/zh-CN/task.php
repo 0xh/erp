@@ -39,7 +39,7 @@ return [
     'end_at' => '处理时间',
     'user_id' => '责任人',
     'informed' => '相关人',
-    'hours' => '工时',
+    'hours' => '工期',
     'time_limit' => '工期',
     'project_id' => '所属项目',
     'product_id' => '关联产品',
