@@ -337,6 +337,10 @@ return [
 
     //通用翻译
 //	''=>'',
+	'TempSave'=>'暂存',
+    'Approve'=>'批准',
+    'Disapprove'=>'不批准',
+    'Review'=>'审批',
     'Note'=>'提示',
     'History'=>'历史',
     'Success'=>'成功',
