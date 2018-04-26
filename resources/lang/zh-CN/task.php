@@ -337,6 +337,8 @@ return [
 
     //通用翻译
 //	''=>'',
+	'Complete'=>'完成',
+	'Processing'=>'处理中',
 	'TempSave'=>'暂存',
     'Approve'=>'批准',
     'Disapprove'=>'不批准',
