@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Admin\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use QL\QueryList;
 use Carbon\Carbon;
 use Encore\Admin\Models\Task\Task;
 use Encore\Admin\Models\Task\Value;
+use Encore\Admin\Facades\Admin;
+use Encore\Admin\Layout\Content;
+use Encore\Admin\Exception\Handler;
 
 class WebcrawlerController extends Controller
 {
@@ -20,56 +25,66 @@ class WebcrawlerController extends Controller
     //
     public function jdSkuImport()
     {
-        $task=$this->task;
-        return view('import.sku',compact('task'));
+        return Admin::content(function (Content $content) {
+            $content->header(trans('task.Import').'SKU');
+            $content->description('...');
+            $content->body(view('import.sku')->render());
+        });
     }
 
-    public function sku2JD(Request $request)
+    public function sku2JD()
     {
-        $input = $request->all();
-        $skus = str_replace("\r\n",",",trim($input['SKU']));
-        $skuArray=array_unique(explode(',', $skus));
-        $jdSKU=[];
-        $errorSKU='';
-        foreach($skuArray as $sku){
-            $hasSKU=$this->value->getEntityFromValue($sku,534);
-            if(!$hasSKU){
-                $jdSKU[]=$this->getJdPrdFromSKU($sku);
-            }else{
-                $errorSKU .= $sku.'  ';
+        return Admin::content(function (Content $content) {
+            $content->header(trans('task.Import').'SKU');
+            $content->description('...');
+            $input = Input::all();
+            $data = isset($input['data']) ? $input['data'] : '';
+            $skus = str_replace("\r\n",",",trim($data));
+            $skuArray=array_unique(explode(',', $skus));
+            $jdSKU=[];
+            $errorSKU='';
+            foreach($skuArray as $sku){
+                $hasSKU=$this->value->where('task_value',$sku)->where('attribute_id',534)->get();
+                if(!$hasSKU->count()){
+                    $jdSKU[]=$this->getJdPrdFromSKU($sku);
+                }else{
+                    $errorSKU .= $sku.'  ';
+                }
             }
-        }
-        if($errorSKU){
-            Flash::error('SKU: '.$errorSKU.trans('view.Duplicate'));
-        }
-        return view('import.sku',compact('skuArray','jdSKU'));
+            if($errorSKU){
+                Handler::error(trans('task.Error'),'SKU: '.$errorSKU.trans('task.Duplicate'));
+//                admin_toastr('SKU: '.$errorSKU.trans('task.Duplicate'),'error');
+            } else {
+                admin_toastr(trans('task.Import').trans('task.Check').trans('task.Content'));
+            }
+            $content->body(view('import.sku',compact('skuArray','jdSKU','data'))->render());
+        });
     }
 
     public function jdSku2Task(Request $request)
     {
         $input = $request->all();
-        $authUser=\Auth::user();
+        $authUser=Admin::user();
         if(isset($input['jd'])){
             foreach($input['jd'] as $prd){
                 if(isset($prd['ready'])){
                     $taskData=[
-                        'title' => 'ImportBySKU-JD:'.$prd['sku'],
-                        'taskstatus_id' => 1,
-                        'tasktype_id' => 2,
+                        'title' => 'JD:'.$prd['sku'].' - '.$prd["name"],
+                        'status_id' => 1,
+                        'type_id' => 2,
                         'hours' => 1,
                         'end_at' => Carbon::now()->toDateTimeString(),
-                        'user_id' => $authUser->id,
-                        'informed' => $authUser->leader,];
+                        'user_id' => $authUser->id,];
                     $task=$this->task->create($taskData);
                     $attributes = [534=> $prd["sku"], 536=> $prd["name"], 535=> $prd["brand"], 537=> $prd["image"]];
                     foreach ($attributes as $attKey=>$attValue) {
-                        $this->value->create(['task_id'=>$task->id,'task_type_eav_id'=>$attKey,'task_value'=>$attValue]);
+                        $this->value->create(['task_id'=>$task->id,'attribute_id'=>$attKey,'task_value'=>$attValue]);
                     }
                 }
             }
+            admin_toastr('SKU'.trans('task.Import').trans('task.Success'));
         }
-        Flash::success('SKU'.trans('view.Import').trans('view.Success'));
-        return redirect(route('tasks.index'));
+        return redirect(admin_base_path('tasks?type=2'));
     }
 
     public function getJdPrdFromSKU($sku)
