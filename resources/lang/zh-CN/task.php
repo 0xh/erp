@@ -311,7 +311,7 @@ return [
     'Tasks'=>'我的任务列表',
     'View Posts'=>'查看文章',
     'Display optionally form'=>'显示选填内容，包括：关联项目、关联产品、相关人（邀请加入当前任务并邮件知会）和详情（富文本编辑器）',
-    'Current Task'=>'当前任务阶段',
+    'Current Task'=>'当前阶段',
     'The initial task does not exist - the current task cannot be assigned to another person'=>'最初发起的任务不存在 - 当前任务不能再分配给其他人',
     'The closed task or closed loop task can not be distributed(can be modify configuration type by department management account)'=>'当前为关单、闭环任务，不可分配、转交（可使用部门管理账号修改类型配置）',
     'When the task state is completed, the current task can be submitted to the next step'=>'当任务状态为完成时，当前任务可提交下一步处理人',
@@ -337,6 +337,7 @@ return [
 
     //通用翻译
 //	''=>'',
+	'Sum'=>'总数',
 	'Complete'=>'完成',
 	'Processing'=>'处理中',
 	'TempSave'=>'暂存',
