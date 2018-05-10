@@ -124,7 +124,8 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-
+                'tasks' => \App\GraphQL\Query\TaskQuery::class,
+                'users' => \App\GraphQL\Query\UserQuery::class,
             ],
             'mutation' => [
 
@@ -181,7 +182,8 @@ return [
      * ]
      */
     'types' => [
-
+        'Task' => \App\GraphQL\Type\TaskType::class,
+        'User' => \App\GraphQL\Type\UserType::class,
     ],
 
     /*

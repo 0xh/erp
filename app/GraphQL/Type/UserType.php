@@ -6,11 +6,11 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Type as BaseType;
 use GraphQL;
 
-class TaskType extends BaseType
+class UserType extends BaseType
 {
     protected $attributes = [
-        'name' => 'TaskType',
-        'description' => 'A type'
+        'name' => 'User',
+        'description' => 'A User'
     ];
 
     public function fields()
@@ -18,17 +18,17 @@ class TaskType extends BaseType
         return [
             'id' => [
                 'type' => Type::nonNull(Type::string()),
-                'description' => 'The id of the task'
+                'description' => 'The id of the user'
             ],
-            'title' => [
+            'email' => [
                 'type' => Type::string(),
-                'description' => 'The title of the task'
+                'description' => 'The email of the user'
             ]
         ];
     }
 
-//    protected function resolveEmailField($root, $args)
-//    {
-//        return strtolower($root->email);
-//    }
+    protected function resolveEmailField($root, $args)
+    {
+        return strtolower($root->email);
+    }
 }
