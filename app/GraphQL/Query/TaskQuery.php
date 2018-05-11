@@ -35,7 +35,7 @@ class TaskQuery extends Query
         } elseif (isset($args['email'])) {
             return Task::where('title', $args['title'])->get();
         } else {
-            return Task::all();
+            return Task::with('value')->get();
         }
     }
 }

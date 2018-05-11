@@ -23,6 +23,10 @@ class TaskType extends BaseType
             'title' => [
                 'type' => Type::string(),
                 'description' => 'The title of the task'
+            ],
+            'value' => [
+                'type' => Type::listOf(GraphQL::type('Value')),
+                'description' => 'The values by the task'
             ]
         ];
     }

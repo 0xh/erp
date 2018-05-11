@@ -128,9 +128,34 @@ return [
                 'users' => \App\GraphQL\Query\UserQuery::class,
             ],
             'mutation' => [
-
+                'updateUserPassword' => \App\GraphQL\Mutation\UpdateUserPasswordMutation::class,
+                'updateUserEmail' => \App\GraphQL\Mutation\UpdateUserEmailMutation::class,
+                'createUser' => \App\GraphQL\Mutation\SignupMutation::class,
+                'login' => \App\GraphQL\Mutation\LoginMutation::class,
             ]
         ]
+    ],
+
+    /*
+     * The types available in the application. You can access them from the
+     * facade like this: GraphQL::type('user')
+     *
+     * Example:
+     *
+     * 'types' => [
+     *     'user' => 'App\GraphQL\Type\UserType'
+     * ]
+     *
+     * or without specifying a key (it will use the ->name property of your type)
+     *
+     * 'types' =>
+     *     'App\GraphQL\Type\UserType'
+     * ]
+     */
+    'types' => [
+        'Task' => \App\GraphQL\Type\TaskType::class,
+        'User' => \App\GraphQL\Type\UserType::class,
+        'Value' => \App\GraphQL\Type\ValueType::class,
     ],
 
     /*
@@ -164,27 +189,6 @@ return [
      * },
      */
     'defaultFieldResolver' => null,
-
-    /*
-     * The types available in the application. You can access them from the
-     * facade like this: GraphQL::type('user')
-     *
-     * Example:
-     *
-     * 'types' => [
-     *     'user' => 'App\GraphQL\Type\UserType'
-     * ]
-     *
-     * or without specifying a key (it will use the ->name property of your type)
-     *
-     * 'types' =>
-     *     'App\GraphQL\Type\UserType'
-     * ]
-     */
-    'types' => [
-        'Task' => \App\GraphQL\Type\TaskType::class,
-        'User' => \App\GraphQL\Type\UserType::class,
-    ],
 
     /*
      * This callable will receive all the Exception objects that are caught by GraphQL.
