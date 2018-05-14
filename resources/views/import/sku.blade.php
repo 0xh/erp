@@ -17,23 +17,27 @@
                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                            <div class="form-group col-sm-4">
                                <label>订单名称</label>
-                               <input class="form-control" required="required" name="project_name" value="{{ isset($project_name) ? $project_name : '' }}" />
+                               <input class="form-control" required="required" name="project_name" value="{{ isset($input['project_name']) ? $input['project_name'] : '' }}" />
+                           </div>
+                           <div class="form-group col-sm-2">
+                               <label>任务金额</label>
+                               <input class="form-control" required="required" name="jd_price" value="{{ isset($input['jd_price']) ? $input['jd_price'] : '' }}" />
                            </div>
                            <div class="form-group col-sm-2">
                                <label>任务ID</label>
-                               <input class="form-control" required="required" name="jd_id" value="{{ isset($jd_id) ? $jd_id : '' }}" />
+                               <input class="form-control" required="required" name="jd_id" value="{{ isset($input['jd_id']) ? $input['jd_id'] : '' }}" />
                            </div>
-                           <div class="form-group col-sm-3">
+                           <div class="form-group col-sm-2">
                                <label>公司名称</label>
-                               <input class="form-control" required="required" name="company_name" value="{{ isset($company_name) ? $company_name : '' }}" />
+                               <input class="form-control" required="required" name="company_name" value="{{ isset($input['company_name']) ? $input['company_name'] : '' }}" />
                            </div>
-                           <div class="form-group col-sm-3">
+                           <div class="form-group col-sm-2">
                                <label>公司电话</label>
-                               <input class="form-control" required="required" name="company_tel" value="{{ isset($company_tel) ? $company_tel : '' }}" />
+                               <input class="form-control" required="required" name="company_tel" value="{{ isset($input['company_tel']) ? $input['company_tel'] : '' }}" />
                            </div>
                            <div class="form-group col-sm-12">
                                <label for="SKU">SKU, 项目渠道, 素材提供类型, 产品外观尺寸, 期望上线日期, 项目交付日期, 价格, 工期, 备注</label>
-                               <textarea class="form-control" style="height:350px" required="required" name="data" cols="50" rows="10" id="SKU">{{ isset($data) ? $data : '' }}</textarea>
+                               <textarea class="form-control" style="height:350px" required="required" name="data" cols="50" rows="10" id="SKU">{{ isset($input['data']) ? $input['data'] : '' }}</textarea>
                            </div>
 
                            <!-- Submit Field -->
@@ -54,6 +58,11 @@
                    <div class="box-body">
                        <form method="POST" action="{{ route('import.jd2task') }}" accept-charset="UTF-8" onsubmit="javascript:$('#btn_save').attr('disabled','disabled')">
                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                           <input type="hidden" name="project_name" value="{{ $input['project_name'] }}"/>
+                           <input type="hidden" name="jd_price" value="{{ $input['jd_price'] }}"/>
+                           <input type="hidden" name="jd_id" value="{{ $input['jd_id'] }}"/>
+                           <input type="hidden" name="company_name" value="{{ $input['company_name'] }}"/>
+                           <input type="hidden" name="company_tel" value="{{ $input['company_tel'] }}"/>
                        <div class="form-group col-sm-12">
                            <table class="table">
                                <thead>

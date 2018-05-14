@@ -61,7 +61,7 @@ class WebcrawlerController extends Controller
             } else {
                 admin_toastr(trans('task.Import').trans('task.Check').trans('task.Content'));
             }
-            $content->body(view('import.sku',compact('skuArray','jdSKU','data'))->render());
+            $content->body(view('import.sku',compact('input','jdSKU'))->render());
         });
     }
 
@@ -71,15 +71,13 @@ class WebcrawlerController extends Controller
         $authUser=Admin::user();
         if(isset($input['jd'])){
             $taskData=[
-                'title' => 'JD:'.$prd['sku'].' - '.$prd["name"],
+                'title' => 'JD:'.$input['project_name'],
                 'status_id' => 1,
-                'type_id' => 2,
-                'price' => $data[6],
-                'time_limit' => $data[7],
-                'hours' => 1,
+                'type_id' => 20,
+                'price' => $input['jd_price'],
                 'end_at' => Carbon::now()->toDateTimeString(),
                 'user_id' => $authUser->id,];
-            $attributes = [569=>$input[''], 573=>$input[''], 574=>$input[''], 575=>$input[''],];
+            $attributes = [569=>$input['project_name'], 573=>$input['jd_id'], 574=>$input['company_name'], 575=>$input['company_tel'],];
             $this->saveTask($taskData,$attributes);
             foreach($input['jd'] as $prd){
                 if(isset($prd['ready'])){
@@ -88,8 +86,8 @@ class WebcrawlerController extends Controller
                         'title' => 'JD:'.$prd['sku'].' - '.$prd["name"],
                         'status_id' => 1,
                         'type_id' => 2,
-                        'price' => $data[6],
-                        'time_limit' => $data[7],
+                        'price' => $prd["price"],
+                        'time_limit' => $prd["time_limit"],
                         'hours' => 1,
                         'end_at' => Carbon::now()->toDateTimeString(),
                         'user_id' => $authUser->id,];
