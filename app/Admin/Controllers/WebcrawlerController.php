@@ -56,8 +56,8 @@ class WebcrawlerController extends Controller
                 }
             }
             if($errorSKU){
-                Handler::error(trans('task.Error'),'SKU: '.$errorSKU.trans('task.Duplicate'));
-//                admin_toastr('SKU: '.$errorSKU.trans('task.Duplicate'),'error');
+//                Handler::error(trans('task.Error'),'SKU: '.$errorSKU.trans('task.Duplicate'));
+                admin_toastr('SKU: '.$errorSKU.trans('task.Duplicate'),'error');
             } else {
                 admin_toastr(trans('task.Import').trans('task.Check').trans('task.Content'));
             }
@@ -83,7 +83,7 @@ class WebcrawlerController extends Controller
                 if(isset($prd['ready'])){
                     //SKU, 项目渠道, 素材提供类型, 产品外观尺寸, 期望上线日期, 项目交付日期, 价格, 工期, 备注
                     $taskData=[
-                        'title' => 'JD:'.$prd['sku'].' - '.$prd["name"],
+                        'title' => 'JD:'.$input['jd_id'].'-'.$input['project_name'].$prd['sku'],
                         'status_id' => 1,
                         'type_id' => 2,
                         'price' => $prd["price"],
