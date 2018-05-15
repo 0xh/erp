@@ -22,11 +22,18 @@ class WebcrawlerController extends Controller
         $this->task = $task;
         $this->value = $value;
     }
+
+    public function jrw()
+    {
+        $phone = 'deep3d三维深度';
+        $pwd = 'deep3d2018';
+    }
+
     //
     public function jdSkuImport()
     {
         return Admin::content(function (Content $content) {
-            $content->header(trans('task.Import').'SKU');
+            $content->header(trans('task.Create').'订单 & '.trans('task.Import').'SKU - JD');
             $content->description('...');
             $content->body(view('import.sku')->render());
         });
@@ -71,7 +78,7 @@ class WebcrawlerController extends Controller
         $authUser=Admin::user();
         if(isset($input['jd'])){
             $taskData=[
-                'title' => 'JD:'.$input['project_name'],
+                'title' => 'JD:'.$input['jd_id'].'-'.$input['project_name'],
                 'status_id' => 1,
                 'type_id' => 20,
                 'price' => $input['jd_price'],
@@ -83,17 +90,17 @@ class WebcrawlerController extends Controller
                 if(isset($prd['ready'])){
                     //SKU, 项目渠道, 素材提供类型, 产品外观尺寸, 期望上线日期, 项目交付日期, 价格, 工期, 备注
                     $taskData=[
-                        'title' => 'JD:'.$input['jd_id'].'-'.$input['project_name'].$prd['sku'],
+                        'title' => 'JD:'.$input['jd_id'].'-'.$input['project_name'].'-SKU:'.$prd['sku'],
                         'status_id' => 1,
                         'type_id' => 2,
                         'price' => $prd["price"],
                         'time_limit' => $prd["time_limit"],
                         'hours' => 1,
-                        'end_at' => Carbon::now()->toDateTimeString(),
+                        'end_at' => $prd["attr540"],
                         'user_id' => $authUser->id,];
                     $attributes = [534=> $prd["sku"], 536=> $prd["name"], 535=> $prd["brand"], 537=> $prd["image"],
                         538=> $prd["attr538"], 539=> $prd["attr539"], 566=> $prd["attr566"], 540=> $prd["attr540"],
-                        567=> $prd["attr567"], 568=> $prd["attr568"]];
+                        567=> $prd["attr567"], 568=> $prd["attr568"], 576=> $input['jd_id']];
                     $this->saveTask($taskData,$attributes);
                 }
             }
@@ -106,7 +113,8 @@ class WebcrawlerController extends Controller
     {
         $task=$this->task->create($taskData);
         foreach ($attributes as $attKey=>$attValue) {
-            $this->value->create(['task_id'=>$task->id,'attribute_id'=>$attKey,'task_value'=>$attValue]);
+            $root_id=$task->root_id?$task->root_id:$task->id;
+            $this->value->create(['task_id'=>$task->id,'root_id'=>$root_id,'attribute_id'=>$attKey,'task_value'=>$attValue]);
         }
     }
 
@@ -123,8 +131,8 @@ class WebcrawlerController extends Controller
         $jsonData['attr538']=$data[1];
         $jsonData['attr539']=$data[2];
         $jsonData['attr566']=$data[3];
-        $jsonData['attr540']=date('Y-m-d H:i:s', strtotime($data[4]));
-        $jsonData['attr567']=date('Y-m-d H:i:s', strtotime($data[5]));
+        $jsonData['attr540']=date('Y-m-d', strtotime($data[4]));
+        $jsonData['attr567']=date('Y-m-d', strtotime($data[5]));
         $jsonData['price']=$data[6];
         $jsonData['time_limit']=$data[7];
         $jsonData['attr568']=isset($data[8])?$data[8]:'';

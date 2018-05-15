@@ -1,13 +1,4 @@
 
-    <section class="content-header">
-        <h1>
-            @lang('task.Create')订单 & @lang('task.Import')SKU - JD
-            <a href="{!! route('tasks.index') !!}" class="btn btn-default">@lang('task.Back')</a>
-        </h1>
-   </section>
-   <div class="content">
-       <div class="row">
-           <div class="col-md-12">
                <div class="box box-default">
                    <div class="box-header with-border">
                        <h3 class="box-title">@lang('task.Step') 1</h3>
@@ -48,9 +39,7 @@
                        </form>
                    </div>
                </div>
-           </div>
            @if(isset($jdSKU))
-           <div class="col-md-12">
                <div class="box box-success">
                    <div class="box-header with-border">
                        <h3 class="box-title">@lang('task.Step') 2</h3>
@@ -63,7 +52,7 @@
                            <input type="hidden" name="jd_id" value="{{ $input['jd_id'] }}"/>
                            <input type="hidden" name="company_name" value="{{ $input['company_name'] }}"/>
                            <input type="hidden" name="company_tel" value="{{ $input['company_tel'] }}"/>
-                       <div class="form-group col-sm-12">
+                       <div class="form-group table-responsive col-sm-12">
                            <table class="table">
                                <thead>
                                <tr>
@@ -88,7 +77,7 @@
                                        <td>{{ $prd['sku'] }}<br/>
                                            <input type="checkbox" name="jd[{{ $prd['sku'] }}][ready]" checked />@lang('task.Confirmed')
                                            <input type="hidden" name="jd[{{ $prd['sku'] }}][sku]" value="{{ $prd['sku'] }}"/></td>
-                                       <td>{{ $prd['name'] }}
+                                       <td title="{{ $prd['name'] }}">{{ str_limit($prd['name'],60) }}
                                            <input type="hidden" name="jd[{{ $prd['sku'] }}][name]" value="{{ $prd['name'] }}"/></td>
                                        <td>{{ $prd['brand'] }}
                                            <input type="hidden" name="jd[{{ $prd['sku'] }}][brand]" value="{{ $prd['brand'] }}"/></td>
@@ -119,7 +108,4 @@
                        </form>
                    </div>
                </div>
-           </div>
            @endif
-       </div>
-   </div>

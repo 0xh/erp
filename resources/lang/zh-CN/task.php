@@ -338,6 +338,8 @@ return [
     //通用翻译
 //	''=>'',
 	'Sum'=>'总数',
+	'Rate'=>'进度',
+	'Time'=>'时间',
 	'Complete'=>'完成',
 	'Processing'=>'处理中',
 	'TempSave'=>'暂存',
