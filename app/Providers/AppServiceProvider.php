@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 //use Encore\Admin\Config\Config;
@@ -13,11 +14,11 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
         if(env('REDIRECT_HTTPS'))
         {
-            \URL::forceScheme('https');
+            $url->forceScheme('https');
         }
         Schema::defaultStringLength(191);
 //        Config::load();
