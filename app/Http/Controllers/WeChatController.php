@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Log;
 //use Encore\Admin\Controllers\Dashboard;
 //use Encore\Admin\Facades\Admin;
@@ -12,21 +13,42 @@ use Log;
 
 class WeChatController extends Controller
 {
+    public $wechat;
 
     /**
-     * 处理微信的请求消息
-     *
-     * @return string
+     * WechatController constructor.
+     * @param $wechat
      */
+    public function __construct()
+    {
+        $this->wechat = app('wechat.official_account');
+    }
+
     public function serve()
     {
-        Log::info('request arrived.'); # 注意：Log 为 Laravel 组件，所以它记的日志去 Laravel 日志看，而不是 EasyWeChat 日志
-
-        $app = app('wechat.official_account');
-        $app->server->push(function($message){
-            return "欢迎关注 overtrue！";
+        $this->wechat->server->push(function($message){
+            return "欢迎关注 Jack@Deep3D！";
         });
 
-        return $app->server->serve();
+        return $this->wechat->server->serve();
+    }
+
+    public function users()
+    {
+        $users = $this->wechat->user->list($nextOpenId = null);
+        return $users;
+    }
+
+    public function user()
+    {
+        $openId = Input::get('openid');
+        $users = $this->wechat->user->get($openId);
+        return $users;
+    }
+
+    public function materials()
+    {
+        $materials = $this->wechat->material->lists(2);
+        return $materials;
     }
 }
