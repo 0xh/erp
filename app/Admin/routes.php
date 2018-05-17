@@ -18,4 +18,3 @@ Route::group([
 
 });
 
-Route::any('/wechat', 'WeChatController@serve')->name('wechat');
