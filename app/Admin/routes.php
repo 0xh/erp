@@ -17,3 +17,5 @@ Route::group([
     $router->any('import/jd2task','WebcrawlerController@jdSku2Task')->name('import.jd2task');
 
 });
+
+Route::any('/wechat', 'WeChatController@serve')->name('wechat');

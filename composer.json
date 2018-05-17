@@ -15,6 +15,7 @@
         "jaeger/querylist-ext-login": "^1.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
+        "overtrue/laravel-wechat": "~4.0",
         "roy688/laravel-querylist": "^1.0",
         "spatie/eloquent-sortable": "^3.4"
     },
