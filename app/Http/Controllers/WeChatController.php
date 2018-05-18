@@ -36,8 +36,7 @@ class WeChatController extends Controller
     public function serve()
     {
         $this->wechat->server->push(function($message){
-            if ($message['MsgType']=='text'){
-
+            if (isset($message['MsgType']) && $message['MsgType']=='text'){
                 $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'">点击自动登录</a>';
             }else{
                 $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>
