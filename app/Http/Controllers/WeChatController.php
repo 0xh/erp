@@ -71,8 +71,10 @@ class WeChatController extends Controller
 
     public function loginUsingId()
     {
+        $url = Input::get('url');
+        $url = $url ? $url : '/admin/tasks';
         Auth::guard('admin')->loginUsingId(Input::get('oid'));
-        return redirect()->intended(config('admin.route.prefix'));
+        return redirect($url);
     }
 
     public function users()
