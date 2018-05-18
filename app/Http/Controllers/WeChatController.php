@@ -50,13 +50,13 @@ class WeChatController extends Controller
                 $user = Administrator::where('username',$message['Content'])->first();
                 if ($user){
                     $user->wechat_id = $message['FromUserName'];
-                    $user = $user->save();
+                    $user->save();
                 }
                 Log::debug('saved open id:');
                 Log::debug($user);
             }
             if (isset($message['MsgType']) && $user){
-//                Auth::guard('admin')->loginUsingId($user->id);
+                Auth::guard('admin')->loginUsingId($user->id);
                 $result = '确认您为'.env('APP_NAME').$user->wechat_id.'认证用户！<a href="'.env('APP_URL').'">点击自动登录</a>';
             }else{
                 $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>
