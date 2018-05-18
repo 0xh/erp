@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use EasyWeChat\Kernel\Messages\Text;
 use App\Http\Controllers\Controller;
+use Encore\Admin\Auth\Database\Administrator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Log;
 //use Encore\Admin\Controllers\Dashboard;
@@ -29,17 +31,26 @@ class WeChatController extends Controller
      * 'ToUserName' => 'gh_6e763e3a8871',
      * 'FromUserName' => 'ozBHHw7KxKgbygYLziF1vyB_hiic',
      * 'CreateTime' => '1526612237',
-     * 'MsgType' => 'text',
-     * 'Content' => 'gdhsh',
-     * 'MsgId' => '6556749632023162650',
+     * 'MsgType' => 'text','Content' => 'gdhsh','MsgId' => '6556749632023162650',
+     * 'MsgType' => 'event','Event' => 'CLICK','EventKey' => 'V1001_TODAY_MUSIC',
+     *
      * @return mixed
      */
     public function serve()
     {
         $this->wechat->server->push(function($message){
             Log::debug($message);
-            if (isset($message['MsgType']) && $message['MsgType']=='text'){
-                $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'">点击自动登录</a>';
+            $user = isset($message['FromUserName']) ? Administrator::where('wechat_id',$message['FromUserName'])->first() : null;
+            if (isset($message['Content']) && !$user){
+                $user = Administrator::where('username',$message['Content'])->first();
+                if ($user){
+                    $user->wechat_id = $message['FromUserName'];
+                    $user = $user->save();
+                }
+            }
+            if (isset($message['MsgType']) && $user){
+                Auth::guard('admin')->loginUsingId($user->id);
+                $result = '确认您为'.env('APP_NAME').$user->wechat_id.'认证用户！<a href="'.env('APP_URL').'">点击自动登录</a>';
             }else{
                 $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>
                           (已注册用户第一次登录时，需回复手机号，以绑定账号自动登录)';
@@ -83,7 +94,7 @@ class WeChatController extends Controller
                             "key"  => "V1001_TODAY_MUSIC"
                         ],
                     ];
-        $this->wechat->menu->create($buttons);
+//        $this->wechat->menu->create($buttons);
         $menuList = $this->wechat->menu->list();
         return $menuList;
     }
