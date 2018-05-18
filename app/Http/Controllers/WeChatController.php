@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use EasyWeChat\Kernel\Messages\Text;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Log;
@@ -36,6 +37,7 @@ class WeChatController extends Controller
     public function serve()
     {
         $this->wechat->server->push(function($message){
+            Log::debug($message);
             if (isset($message['MsgType']) && $message['MsgType']=='text'){
                 $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'">点击自动登录</a>';
             }else{
@@ -63,10 +65,27 @@ class WeChatController extends Controller
 
     public function msg2user()
     {
-        $openId = Input::get('openid');
+        $fromId = Input::get('fromid');
+        $toId = Input::get('toid');
         $message = Input::get('message');
-        $users = $this->wechat->customer_service->message($message)->to($openId)->send();
-        return $users;
+
+        $msgSend = $this->wechat->customer_service->message($message)->to($toId)->send();
+        return $msgSend;
+    }
+
+    public function menuList()
+    {
+        $this->wechat->menu->delete();
+        $buttons = [
+                        [
+                            "type" => "click",
+                            "name" => env('APP_NAME'),
+                            "key"  => "V1001_TODAY_MUSIC"
+                        ],
+                    ];
+        $this->wechat->menu->create($buttons);
+        $menuList = $this->wechat->menu->list();
+        return $menuList;
     }
 
     public function materials()
@@ -75,3 +94,19 @@ class WeChatController extends Controller
         return $materials;
     }
 }
+
+
+
+//$this->wechat->server->push(function($message){
+//    $fromId = Input::get('fromid');
+//    $toId = Input::get('toid');
+//    $message = Input::get('message');
+//
+//    $msgSend=new Text($message);
+//    $msgSend->setAttribute('from',$fromId);
+//    $msgSend->setAttribute('to',$toId);
+//    $msgSend = $this->wechat->customer_service->message($message)->to($toId)->send();
+//    return $msgSend;
+//});
+//
+//return $this->wechat->server->serve();
