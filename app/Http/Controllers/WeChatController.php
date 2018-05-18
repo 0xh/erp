@@ -27,6 +27,7 @@ class WeChatController extends Controller
     public function serve()
     {
         $this->wechat->server->push(function($message){
+            Log::debug($message);
             return '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">系统地址</a>';
         });
 
