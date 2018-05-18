@@ -39,29 +39,23 @@ class WeChatController extends Controller
     public function serve()
     {
         $this->wechat->server->push(function($message){
-            Log::debug($message);
             $user = null;
             if(isset($message['FromUserName'])){
                 $user = Administrator::where('wechat_id',$message['FromUserName'])->first();
             }
-            Log::debug('has open id:');
-            Log::debug($user);
             if (isset($message['Content']) && !$user){
                 $user = Administrator::where('username',$message['Content'])->first();
-                if ($user){
+                if ($user && !$user->wechat_id){
                     $user->wechat_id = $message['FromUserName'];
                     $user->save();
                 }
-                Log::debug('saved open id:');
-                Log::debug($user);
             }
             if (isset($message['MsgType']) && $user){
-//                Auth::guard('admin')->loginUsingId($user->id);
 //                $this->wechat->oauth->scopes(['snsapi_userinfo'])->redirect();
                 $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'/wechat/login?oid='.$user->id.'">点击自动登录</a>';
             }else{
-                $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>
-                          (已注册用户第一次登录时，需回复手机号，以绑定账号自动登录)';
+                $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>'
+                          .'(已注册用户第一次登录时，需回复手机号，以绑定账号自动登录)';
             }
             return $result;
         });
