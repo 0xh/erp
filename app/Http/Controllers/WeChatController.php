@@ -24,11 +24,26 @@ class WeChatController extends Controller
         $this->wechat = app('wechat.official_account');
     }
 
+    /**
+     * 'ToUserName' => 'gh_6e763e3a8871',
+     * 'FromUserName' => 'ozBHHw7KxKgbygYLziF1vyB_hiic',
+     * 'CreateTime' => '1526612237',
+     * 'MsgType' => 'text',
+     * 'Content' => 'gdhsh',
+     * 'MsgId' => '6556749632023162650',
+     * @return mixed
+     */
     public function serve()
     {
         $this->wechat->server->push(function($message){
-            Log::debug($message);
-            return '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">系统地址</a>';
+            if ($message['MsgType']=='text'){
+
+                $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'">点击自动登录</a>';
+            }else{
+                $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>
+                          (已注册用户第一次登录时，需回复手机号，以绑定账号自动登录)';
+            }
+            return $result;
         });
 
         return $this->wechat->server->serve();
@@ -44,6 +59,14 @@ class WeChatController extends Controller
     {
         $openId = Input::get('openid');
         $users = $this->wechat->user->get($openId);
+        return $users;
+    }
+
+    public function msg2user()
+    {
+        $openId = Input::get('openid');
+        $message = Input::get('message');
+        $users = $this->wechat->customer_service->message($message)->to($openId)->send();
         return $users;
     }
 
