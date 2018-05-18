@@ -40,7 +40,10 @@ class WeChatController extends Controller
     {
         $this->wechat->server->push(function($message){
             Log::debug($message);
-            $user = isset($message['FromUserName']) ? Administrator::where('wechat_id',$message['FromUserName'])->first() : null;
+            $user = null;
+            if(isset($message['FromUserName'])){
+                $user = Administrator::where('wechat_id',$message['FromUserName'])->first();
+            }
             Log::debug('has open id:');
             Log::debug($user);
             if (isset($message['Content']) && !$user){
