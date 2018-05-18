@@ -27,7 +27,7 @@ class WeChatController extends Controller
     public function serve()
     {
         $this->wechat->server->push(function($message){
-            return "欢迎关注 Jack@Deep3D！";
+            return '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">系统地址</a>';
         });
 
         return $this->wechat->server->serve();
@@ -48,7 +48,7 @@ class WeChatController extends Controller
 
     public function materials()
     {
-        $materials = $this->wechat->material->lists(2);
+        $materials = $this->wechat->material->lists();
         return $materials;
     }
 }

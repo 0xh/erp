@@ -5,17 +5,17 @@ return [
     /*
      * Laravel-admin name.
      */
-    'name' => '业务管理系统',
+    'name' => env('APP_NAME'),
 
     /*
      * Logo in admin panel header.
      */
-    'logo' => '<b>J</b> admin',
+    'logo' => env('APP_LOGO'),
 
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini' => '<b>Jr</b>',
+    'logo-mini' => '<b>Reap</b>',
 
     /*
      * Route configuration.
