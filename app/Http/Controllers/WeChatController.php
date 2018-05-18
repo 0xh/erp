@@ -56,8 +56,9 @@ class WeChatController extends Controller
                 Log::debug($user);
             }
             if (isset($message['MsgType']) && $user){
-                Auth::guard('admin')->loginUsingId($user->id);
-                $result = '确认您为'.env('APP_NAME').$user->wechat_id.'认证用户！<a href="'.env('APP_URL').'">点击自动登录</a>';
+//                Auth::guard('admin')->loginUsingId($user->id);
+//                $this->wechat->oauth->scopes(['snsapi_userinfo'])->redirect();
+                $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'/wechat/login?oid='.$user->id.'">点击自动登录</a>';
             }else{
                 $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>
                           (已注册用户第一次登录时，需回复手机号，以绑定账号自动登录)';
@@ -66,6 +67,12 @@ class WeChatController extends Controller
         });
 
         return $this->wechat->server->serve();
+    }
+
+    public function loginUsingId()
+    {
+        Auth::guard('admin')->loginUsingId(Input::get('oid'));
+        return redirect()->intended(config('admin.route.prefix'));
     }
 
     public function users()
