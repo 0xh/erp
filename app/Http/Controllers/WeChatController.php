@@ -65,9 +65,9 @@ class WeChatController extends Controller
 
     public function getOpenId()
     {
-        $oauth = $this->wechat->oauth->user();
-        dd($oauth);
-        return $oauth;
+//        $oauth = $this->wechat->oauth->user();
+        dd(session('wechat.oauth_user.default'));
+//        return $oauth;
 //        $openPlatform = EasyWeChat::openPlatform();
 //        app('wechat.open_platform')->getPreAuthorizationUrl(env('APP_URL').'/wechat/login');
     }
