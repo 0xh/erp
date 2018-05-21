@@ -51,8 +51,7 @@ class WeChatController extends Controller
                 }
             }
             if (isset($message['MsgType']) && $user){
-//                $this->wechat->oauth->scopes(['snsapi_userinfo'])->redirect();
-                $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'/wechat/login?oid='.$user->id.'">点击自动登录</a>';
+                $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'/wechat/login">点击自动登录</a>';
             }else{
                 $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>'
                           .'(已注册用户第一次登录时，需回复手机号，以绑定账号自动登录)';
@@ -66,7 +65,7 @@ class WeChatController extends Controller
     public function getOpenId()
     {
 //        $oauth = $this->wechat->oauth->user();
-        dd(session('wechat.oauth_user.default'));
+//        dd(session('wechat.oauth_user.default'));
 //        return $oauth;
 //        $openPlatform = EasyWeChat::openPlatform();
 //        app('wechat.open_platform')->getPreAuthorizationUrl(env('APP_URL').'/wechat/login');
@@ -74,10 +73,16 @@ class WeChatController extends Controller
 
     public function loginUsingId()
     {
-        dd(Input::all());
         $url = Input::get('url');
         $url = $url ? $url : '/admin/tasks';
-        Auth::guard('admin')->loginUsingId(Input::get('oid'));
+        $wxUser = session('wechat.oauth_user.default');
+        $openId = $wxUser ? $wxUser->attributes['id'] : null;
+        $user = Administrator::where('wechat_id',$openId)->first();
+        if (empty($user)) {
+            return redirect($url);
+        }
+
+        Auth::guard('admin')->loginUsingId($user->id);
         return redirect($url);
     }
 
