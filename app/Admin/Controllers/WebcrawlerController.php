@@ -82,7 +82,7 @@ class WebcrawlerController extends Controller
                 'status_id' => 1,
                 'type_id' => 20,
                 'price' => $input['jd_price'],
-                'end_at' => Carbon::now()->toDateTimeString(),
+                'end_at' => $input['jd_end_at'],//Carbon::now()->toDateTimeString(),
                 'user_id' => $authUser->id,];
             $attributes = [569=>$input['project_name'], 573=>$input['jd_id'], 574=>$input['company_name'], 575=>$input['company_tel'],];
             $this->saveTask($taskData,$attributes);

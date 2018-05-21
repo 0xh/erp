@@ -22,3 +22,4 @@ Route::any('wechat/users', 'WeChatController@users')->name('wechat.users');
 Route::any('wechat/login', 'WeChatController@loginUsingId')->name('wechat.login');
 Route::any('wechat/materials', 'WeChatController@materials')->name('wechat.materials');
 Route::any('wechat/menulist', 'WeChatController@menuList')->name('wechat.menuList');
+Route::any('wechat/getopenid', 'WeChatController@getOpenId')->name('wechat.getOpenId');

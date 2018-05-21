@@ -11,12 +11,16 @@
                                <input class="form-control" required="required" name="project_name" value="{{ isset($input['project_name']) ? $input['project_name'] : '' }}" />
                            </div>
                            <div class="form-group col-sm-2">
-                               <label>任务金额</label>
+                               <label>订单金额</label>
                                <input class="form-control" required="required" name="jd_price" value="{{ isset($input['jd_price']) ? $input['jd_price'] : '' }}" />
                            </div>
-                           <div class="form-group col-sm-2">
-                               <label>任务ID</label>
+                           <div class="form-group col-sm-1">
+                               <label>订单ID</label>
                                <input class="form-control" required="required" name="jd_id" value="{{ isset($input['jd_id']) ? $input['jd_id'] : '' }}" />
+                           </div>
+                           <div class="form-group col-sm-1">
+                               <label>截止日期</label>
+                               <input class="form-control" required="required" name="jd_end_at" value="{{ isset($input['jd_end_at']) ? $input['jd_end_at'] : '' }}" />
                            </div>
                            <div class="form-group col-sm-2">
                                <label>公司名称</label>
