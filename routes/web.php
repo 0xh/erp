@@ -15,6 +15,7 @@ Route::get('/', function () {
     return redirect('/admin');
 });
 
+Route::any('test', 'TestController@test')->name('test');
 Route::any('wechat', 'WeChatController@serve')->name('wechat');
 Route::any('wechat/user', 'WeChatController@user')->name('wechat.user');
 Route::any('wechat/msg2user', 'WeChatController@msg2user')->name('wechat.msg2user');

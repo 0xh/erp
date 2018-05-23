@@ -13,6 +13,7 @@
         "intervention/image": "^2.4",
         "jaeger/querylist": "^4.0",
         "jaeger/querylist-ext-login": "^1.0",
+        "jesusslim/pinject": "^1.2",
         "koolkode/bpmn": "0.2.*",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
