@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://bpmn.io/schema/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="Definitions_1" name="" targetNamespace="http://bpmn.io/schema/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <bpmn:collaboration id="Collaboration_1df5bw8" isClosed="false">
+    <bpmn:participant id="zundokokiyoshi" name="zundokokiyoshi" processRef="kiyoshi_workflow">
+      <bpmn:participantMultiplicity maximum="1" minimum="0"/>
+    </bpmn:participant>
+  </bpmn:collaboration>
+  <bpmn:process id="kiyoshi_workflow" isClosed="false" isExecutable="true" processType="None">
+    <bpmn:laneSet>
+      <bpmn:lane id="kiyoshi_hikawa">
+        <bpmn:flowNodeRef>start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>random_zundoko_gateway</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>say_doko</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>say_zun</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>kiyoshi_gateway</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="fun">
+        <bpmn:flowNodeRef>say_kiyoshi</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>end</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="start"/>
+    <bpmn:exclusiveGateway gatewayDirection="Unspecified" id="random_zundoko_gateway"/>
+    <bpmn:task activiti:exclusive="true" default="flow_after_doko" id="say_doko" name="doko"/>
+    <bpmn:task activiti:exclusive="true" default="flow_after_zun" id="say_zun" name="zun"/>
+    <bpmn:exclusiveGateway default="flow_after_kiyoshi_gateway" gatewayDirection="Unspecified" id="kiyoshi_gateway"/>
+    <bpmn:sequenceFlow id="flow_start" sourceRef="start" targetRef="random_zundoko_gateway"/>
+    <bpmn:sequenceFlow id="flow_after_kiyoshi_gateway" sourceRef="kiyoshi_gateway" targetRef="random_zundoko_gateway"/>
+    <bpmn:sequenceFlow id="flow_before_doko" sourceRef="random_zundoko_gateway" targetRef="say_doko">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[random % 2 == 1]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="flow_before_zun" sourceRef="random_zundoko_gateway" targetRef="say_zun">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[random % 2 == 0]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="flow_after_doko" sourceRef="say_doko" targetRef="kiyoshi_gateway"/>
+    <bpmn:sequenceFlow id="flow_before_kiyoshi" sourceRef="kiyoshi_gateway" targetRef="say_kiyoshi">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[record matches "/zun\,zun\,zun\,zun\,doko$/"]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:task activiti:exclusive="true" id="say_kiyoshi" name="kiyoshi"/>
+    <bpmn:endEvent id="end" name="end"/>
+    <bpmn:sequenceFlow id="flow_end" sourceRef="say_kiyoshi" targetRef="end"/>
+    <bpmn:sequenceFlow id="flow_after_zun" sourceRef="say_zun" targetRef="random_zundoko_gateway"/>
+    <bpmn:textAnnotation id="TextAnnotation_1nilazr" textFormat="text/plain">
+      <bpmn:text>at random</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association associationDirection="None" id="Association_1ubgsyl" sourceRef="random_zundoko_gateway" targetRef="TextAnnotation_1nilazr"/>
+    <bpmn:association associationDirection="None" id="Association_0p41i5j" sourceRef="kiyoshi_gateway" targetRef="TextAnnotation_010447v"/>
+    <bpmn:textAnnotation id="TextAnnotation_010447v" textFormat="text/plain">
+      <bpmn:text>"zun zun zun zun doko" has appeared?</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram documentation="background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration_1df5bw8">
+      <bpmndi:BPMNShape bpmnElement="zundokokiyoshi" id="Shape-zundokokiyoshi" isExpanded="true" isHorizontal="true">
+        <dc:Bounds height="470.0" width="771.0" x="241.0" y="-43.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="470.0" width="771.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="start" id="Shape-start">
+        <dc:Bounds height="32.0" width="32.0" x="291.0" y="102.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="random_zundoko_gateway" id="Shape-random_zundoko_gateway" isMarkerVisible="true">
+        <dc:Bounds height="32.0" width="32.0" x="400.0" y="95.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="say_doko" id="Shape-say_doko">
+        <dc:Bounds height="80.0" width="100.0" x="465.0" y="191.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="say_zun" id="Shape-say_zun">
+        <dc:Bounds height="80.0" width="100.0" x="465.0" y="-23.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="kiyoshi_gateway" id="Shape-kiyoshi_gateway" isMarkerVisible="true">
+        <dc:Bounds height="32.0" width="32.0" x="582.0" y="95.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TextAnnotation_1nilazr" id="Shape-TextAnnotation_1nilazr">
+        <dc:Bounds height="80.0" width="100.0" x="315.0" y="11.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="TextAnnotation_010447v" id="Shape-TextAnnotation_010447v">
+        <dc:Bounds height="80.0" width="100.0" x="664.0" y="-10.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="kiyoshi_hikawa" id="Shape-kiyoshi_hikawa" isExpanded="true" isHorizontal="true">
+        <dc:Bounds height="350.0" width="746.0" x="267.0" y="-43.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="350.0" width="746.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fun" id="Shape-fun" isExpanded="true" isHorizontal="true">
+        <dc:Bounds height="120.0" width="746.0" x="267.0" y="307.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="120.0" width="746.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="say_kiyoshi" id="Shape-say_kiyoshi">
+        <dc:Bounds height="80.0" width="100.0" x="627.6355498721227" y="331.6777493606138"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="Shape-end">
+        <dc:Bounds height="32.0" width="32.0" x="874.6355498721227" y="354.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow_after_doko" id="BPMNEdge_flow_after_doko" sourceElement="say_doko" targetElement="kiyoshi_gateway">
+        <di:waypoint x="565.0" y="231.0"/>
+        <di:waypoint x="607.0" y="231.0"/>
+        <di:waypoint x="607.0" y="118.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="627.0" y="220.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow_after_kiyoshi_gateway" id="BPMNEdge_flow_after_kiyoshi_gateway" sourceElement="kiyoshi_gateway" targetElement="random_zundoko_gateway">
+        <di:waypoint x="582.0" y="111.0"/>
+        <di:waypoint x="432.0" y="111.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="471.0" y="110.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow_before_kiyoshi" id="BPMNEdge_flow_before_kiyoshi" sourceElement="kiyoshi_gateway" targetElement="say_kiyoshi">
+        <di:waypoint x="605.0" y="120.0"/>
+        <di:waypoint x="682.0" y="120.0"/>
+        <di:waypoint x="682.0" y="332.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="562.0" y="249.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow_after_zun" id="BPMNEdge_flow_after_zun" sourceElement="say_zun" targetElement="random_zundoko_gateway">
+        <di:waypoint x="465.0" y="17.0"/>
+        <di:waypoint x="432.0" y="111.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="400.0" y="7.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow_start" id="BPMNEdge_flow_start" sourceElement="start" targetElement="random_zundoko_gateway">
+        <di:waypoint x="323.0" y="118.0"/>
+        <di:waypoint x="400.0" y="111.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="289.0" y="110.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow_before_zun" id="BPMNEdge_flow_before_zun" sourceElement="random_zundoko_gateway" targetElement="say_zun">
+        <di:waypoint x="425.0" y="104.0"/>
+        <di:waypoint x="425.0" y="17.0"/>
+        <di:waypoint x="465.0" y="17.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="435.0" y="110.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow_end" id="BPMNEdge_flow_end" sourceElement="say_kiyoshi" targetElement="end">
+        <di:waypoint x="728.0" y="371.6777493606138"/>
+        <di:waypoint x="875.0" y="370.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="760.5" y="362.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow_before_doko" id="BPMNEdge_flow_before_doko" sourceElement="random_zundoko_gateway" targetElement="say_doko">
+        <di:waypoint x="425.0" y="118.0"/>
+        <di:waypoint x="425.0" y="231.0"/>
+        <di:waypoint x="465.0" y="231.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="20.0" width="90.0" x="342.0" y="214.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Association_1ubgsyl" id="BPMNEdge_Association_1ubgsyl" sourceElement="random_zundoko_gateway" targetElement="TextAnnotation_1nilazr">
+        <di:waypoint x="408.64864864864865" y="102.35135135135135"/>
+        <di:waypoint x="399.0" y="91.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Association_0p41i5j" id="BPMNEdge_Association_0p41i5j" sourceElement="kiyoshi_gateway" targetElement="TextAnnotation_010447v">
+        <di:waypoint x="607.4213197969543" y="104.42131979695432"/>
+        <di:waypoint x="664.0" y="64.91379310344827"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="-1.0" width="-1.0" x="-1.0" y="-1.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
