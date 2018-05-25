@@ -54,6 +54,7 @@
                            <input type="hidden" name="project_name" value="{{ $input['project_name'] }}"/>
                            <input type="hidden" name="jd_price" value="{{ $input['jd_price'] }}"/>
                            <input type="hidden" name="jd_id" value="{{ $input['jd_id'] }}"/>
+                           <input type="hidden" name="jd_id" value="{{ $input['jd_end_at'] }}"/>
                            <input type="hidden" name="company_name" value="{{ $input['company_name'] }}"/>
                            <input type="hidden" name="company_tel" value="{{ $input['company_tel'] }}"/>
                        <div class="form-group table-responsive col-sm-12">

@@ -81,7 +81,7 @@ class testWorkflow
         $workflow->start(new StartEvent('start', $workflow->getRole('kiyoshi_hikawa')));
         $workflow->unserialize(($workflow->serialize()));
         while ($workflow->isActive()) {
-//            ddd($workflow);
+            ddd($workflow);
 //            ddd(,$workflow);//['stateMachine']->getTransitionLog()
 //$dd=$workflow->getCurrentFlowObject();
             $participant = $workflow->getCurrentFlowObject()->getRole()->getId() == 'kiyoshi_hikawa' ? $kiyoshi : $fun;
