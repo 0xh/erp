@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:collaboration id="Collaboration_0l34rwd">
+    <bpmn2:participant id="Participant_1cengdv" processRef="Model3DApprove" />
+  </bpmn2:collaboration>
+  <bpmn2:process id="Model3DApprove" name="模型过程审批" isExecutable="false" camunda:versionTag="1">
+    <bpmn2:laneSet>
+      <bpmn2:lane id="Modeler">
+        <bpmn2:flowNodeRef>Start</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>Task_Submit</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+      <bpmn2:lane id="Leader">
+        <bpmn2:flowNodeRef>Task_Approve</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>ExclusiveGateway_isApprove</bpmn2:flowNodeRef>
+        <bpmn2:flowNodeRef>End</bpmn2:flowNodeRef>
+      </bpmn2:lane>
+    </bpmn2:laneSet>
+    <bpmn2:startEvent id="Start">
+      <bpmn2:outgoing>Start2Task_Submit</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:task id="Task_Submit" name="模型提交">
+      <bpmn2:incoming>Start2Task_Submit</bpmn2:incoming>
+      <bpmn2:incoming>isApprove2Task_Submit</bpmn2:incoming>
+      <bpmn2:outgoing>Task_Submit2Task_Approve</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="Start2Task_Submit" sourceRef="Start" targetRef="Task_Submit" />
+    <bpmn2:sequenceFlow id="Task_Submit2Task_Approve" sourceRef="Task_Submit" targetRef="Task_Approve" />
+    <bpmn2:sequenceFlow id="Task_Approve2isApprove" sourceRef="Task_Approve" targetRef="ExclusiveGateway_isApprove" />
+    <bpmn2:sequenceFlow id="isApprove2Task_Submit" sourceRef="ExclusiveGateway_isApprove" targetRef="Task_Submit">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">approve == no</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:task id="Task_Approve" name="模型审批">
+      <bpmn2:documentation>模型组组长审批</bpmn2:documentation>
+      <bpmn2:incoming>Task_Submit2Task_Approve</bpmn2:incoming>
+      <bpmn2:outgoing>Task_Approve2isApprove</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_isApprove" name="是否审批通过">
+      <bpmn2:incoming>Task_Approve2isApprove</bpmn2:incoming>
+      <bpmn2:outgoing>isApprove2Task_Submit</bpmn2:outgoing>
+      <bpmn2:outgoing>isApprove2End</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:endEvent id="End">
+      <bpmn2:incoming>isApprove2End</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="isApprove2End" sourceRef="ExclusiveGateway_isApprove" targetRef="End">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">approve == yes</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0l34rwd">
+      <bpmndi:BPMNShape id="Participant_1cengdv_di" bpmnElement="Participant_1cengdv">
+        <dc:Bounds x="343" y="156" width="611" height="370" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="Start">
+        <dc:Bounds x="406" y="255" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="379" y="291" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1i7s6vr_di" bpmnElement="Task_Approve">
+        <dc:Bounds x="520" y="399" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0ghgszn_di" bpmnElement="Task_Submit">
+        <dc:Bounds x="520" y="233" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_15fbh06_di" bpmnElement="ExclusiveGateway_isApprove" isMarkerVisible="true">
+        <dc:Bounds x="687" y="414" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="678" y="474" width="68" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0p6u9hb_di" bpmnElement="Task_Approve2isApprove">
+        <di:waypoint x="620" y="439" />
+        <di:waypoint x="687" y="439" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="653.5" y="418" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1r7kmv0_di" bpmnElement="Start2Task_Submit">
+        <di:waypoint x="442" y="273" />
+        <di:waypoint x="520" y="273" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="481" y="252" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1vebi37_di" bpmnElement="Task_Submit2Task_Approve">
+        <di:waypoint x="570" y="313" />
+        <di:waypoint x="570" y="399" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="585" y="350" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hmfx57_di" bpmnElement="isApprove2Task_Submit">
+        <di:waypoint x="712" y="414" />
+        <di:waypoint x="712" y="273" />
+        <di:waypoint x="620" y="273" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="727" y="337.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_056qpq5_di" bpmnElement="Modeler">
+        <dc:Bounds x="373" y="156" width="581" height="183" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1umymzo_di" bpmnElement="Leader">
+        <dc:Bounds x="373" y="339" width="581" height="187" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1gvhqz0_di" bpmnElement="End">
+        <dc:Bounds x="804" y="421" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="822" y="461" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_02db6fx_di" bpmnElement="isApprove2End">
+        <di:waypoint x="737" y="439" />
+        <di:waypoint x="804" y="439" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="770.5" y="418" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

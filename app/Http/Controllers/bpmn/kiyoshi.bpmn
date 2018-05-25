@@ -34,7 +34,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="flow_after_doko" sourceRef="say_doko" targetRef="kiyoshi_gateway"/>
     <bpmn:sequenceFlow id="flow_before_kiyoshi" sourceRef="kiyoshi_gateway" targetRef="say_kiyoshi">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[record matches "/zun\,zun\,zun\,zun\,doko$/"]]></bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[record matches "/zun\,doko$/"]]></bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:task activiti:exclusive="true" id="say_kiyoshi" name="kiyoshi"/>
     <bpmn:endEvent id="end" name="end"/>
