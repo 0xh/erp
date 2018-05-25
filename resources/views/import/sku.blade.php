@@ -10,7 +10,7 @@
                                <label>订单名称</label>
                                <input class="form-control" required="required" name="project_name" value="{{ isset($input['project_name']) ? $input['project_name'] : '' }}" />
                            </div>
-                           <div class="form-group col-sm-2">
+                           <div class="form-group col-sm-1">
                                <label>订单金额</label>
                                <input class="form-control" required="required" name="jd_price" value="{{ isset($input['jd_price']) ? $input['jd_price'] : '' }}" />
                            </div>
@@ -18,9 +18,9 @@
                                <label>订单ID</label>
                                <input class="form-control" required="required" name="jd_id" value="{{ isset($input['jd_id']) ? $input['jd_id'] : '' }}" />
                            </div>
-                           <div class="form-group col-sm-1">
+                           <div class="form-group col-sm-2">
                                <label>截止日期</label>
-                               <input class="form-control" required="required" name="jd_end_at" value="{{ isset($input['jd_end_at']) ? $input['jd_end_at'] : '' }}" />
+                               <input type="date" class="form-control jd_end_at" required="required" name="jd_end_at" value="{{ isset($input['jd_end_at']) ? $input['jd_end_at'] : '' }}" />
                            </div>
                            <div class="form-group col-sm-2">
                                <label>公司名称</label>
@@ -54,7 +54,7 @@
                            <input type="hidden" name="project_name" value="{{ $input['project_name'] }}"/>
                            <input type="hidden" name="jd_price" value="{{ $input['jd_price'] }}"/>
                            <input type="hidden" name="jd_id" value="{{ $input['jd_id'] }}"/>
-                           <input type="hidden" name="jd_id" value="{{ $input['jd_end_at'] }}"/>
+                           <input type="hidden" name="jd_end_at" value="{{ $input['jd_end_at'] }}"/>
                            <input type="hidden" name="company_name" value="{{ $input['company_name'] }}"/>
                            <input type="hidden" name="company_tel" value="{{ $input['company_tel'] }}"/>
                        <div class="form-group table-responsive col-sm-12">
