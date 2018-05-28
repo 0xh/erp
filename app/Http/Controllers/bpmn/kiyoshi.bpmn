@@ -23,9 +23,11 @@
     <bpmn:exclusiveGateway gatewayDirection="Unspecified" id="random_zundoko_gateway"/>
     <bpmn:task activiti:exclusive="true" default="flow_after_doko" id="say_doko" name="doko"/>
     <bpmn:task activiti:exclusive="true" default="flow_after_zun" id="say_zun" name="zun"/>
-    <bpmn:exclusiveGateway default="flow_after_kiyoshi_gateway" gatewayDirection="Unspecified" id="kiyoshi_gateway"/>
+    <bpmn:exclusiveGateway gatewayDirection="Unspecified" id="kiyoshi_gateway"/>
     <bpmn:sequenceFlow id="flow_start" sourceRef="start" targetRef="random_zundoko_gateway"/>
-    <bpmn:sequenceFlow id="flow_after_kiyoshi_gateway" sourceRef="kiyoshi_gateway" targetRef="random_zundoko_gateway"/>
+    <bpmn:sequenceFlow id="flow_after_kiyoshi_gateway" sourceRef="kiyoshi_gateway" targetRef="random_zundoko_gateway">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[random % 2 == 0]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="flow_before_doko" sourceRef="random_zundoko_gateway" targetRef="say_doko">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[random % 2 == 1]]></bpmn:conditionExpression>
     </bpmn:sequenceFlow>
