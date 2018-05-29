@@ -36,7 +36,7 @@ return [
     'type_id' => '任务类型',
     'created_at' => '创建时间',
     'updated_at' => '更新时间',
-    'end_at' => '处理时间',
+    'end_at' => '交付日期',
     'user_id' => '责任人',
     'informed' => '相关人',
     'hours' => '工期',

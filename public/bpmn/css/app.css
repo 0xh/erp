@@ -641,8 +641,8 @@ a:link {
 /* line 24, styles/app.less */
 .content {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 1700px;
+  height: 700px;
 }
 /* line 29, styles/app.less */
 .content > .message {
