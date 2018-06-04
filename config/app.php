@@ -168,6 +168,8 @@ return [
          * Package Service Providers...
          */
 
+//        Encore\Admin\AdminServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

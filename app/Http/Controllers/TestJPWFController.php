@@ -9,7 +9,7 @@ use Encore\Admin\Workflow\process\Process;
 use Encore\Admin\Workflow\step\AutoStep;
 use PHPMentors\Workflower\Definition\Bpmn2Reader;
 
-class TestController extends Controller
+class TestJPWFController extends Controller
 {
     public $test;
     protected $workflowRepository;
