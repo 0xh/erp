@@ -36,7 +36,7 @@ return [
     'type_id' => '任务类型',
     'created_at' => '创建时间',
     'updated_at' => '更新时间',
-    'end_at' => '交付日期',
+    'end_at' => '预计完成日期',
     'user_id' => '责任人',
     'informed' => '相关人',
     'hours' => '工期',
@@ -57,7 +57,7 @@ return [
     'orderby'=>'表单排序',
 
     //Tasktype
-    'assigned_to' => '任务请求/分配',
+    'assigned_to' => '任务分配',
     'project_required' => '关联项目',
     'product_required' => '关联产品',
     'multi_assigned'=>'多次分配',
