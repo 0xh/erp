@@ -15,7 +15,7 @@ return [
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini' => '<b>Reap</b>',
+    'logo-mini' => env('APP_LOGO_MINI'),
 
     /*
      * Route configuration.
@@ -127,9 +127,9 @@ return [
     ],
 
     /*
-     * @see https://adminlte.io/docs/2.4/layout
+     * @see https://adminlte.io/docs/2.4/layout skin-blue-light
      */
-    'skin' => 'skin-blue-light',
+    'skin' => 'skin-yellow',
 
     /*
     |---------------------------------------------------------|
