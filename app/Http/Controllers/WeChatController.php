@@ -53,7 +53,7 @@ class WeChatController extends Controller
             if (isset($message['MsgType']) && $user){
                 $result = '确认您为'.env('APP_NAME').'认证用户！<a href="'.env('APP_URL').'/wechat/login">点击自动登录</a>';
             }else{
-                $result = '欢迎关注 '.env('APP_NAME').'！<a href="'.env('APP_URL').'">点击通过账号登录</a>'
+                $result = '欢迎关注 '.env('APP_NAME').'！'//<a href="'.env('APP_URL').'">点击通过账号登录</a>
                           .'(已注册用户第一次登录时，需回复手机号，以绑定账号自动登录)';
             }
             return $result;
