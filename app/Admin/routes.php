@@ -3,6 +3,7 @@
 use Illuminate\Routing\Router;
 
 Admin::registerAuthRoutes();
+Lva::registerAuthRoutes();
 
 Route::group([
     'prefix'        => config('admin.route.prefix'),
