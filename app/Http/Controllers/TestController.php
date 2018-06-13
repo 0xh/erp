@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\SampleChart;
 use App\Http\Controllers\Controller;
 use PHPMentors\Workflower\Definition\Bpmn2Reader;
 use PHPMentors\Workflower\Workflow\Event\StartEvent;
@@ -21,6 +22,14 @@ class TestController extends Controller
     }
 
     public function test()
+    {
+        $chart = new SampleChart();
+//        $api = url('/test_data');
+        $chart->dataset('Sample', 'line', [100, 65, 84, 45, 90]);
+        return view('chart', ['chart' => $chart]);
+    }
+
+    public function test1()
     {
         $kiyoshiApp = new testWorkflow();
         $output = $kiyoshiApp->run();

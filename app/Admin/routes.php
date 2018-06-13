@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Routing\Router;
+use Vreap\Lva\Facades\Lva;
 
 Admin::registerAuthRoutes();
-Lva::registerAuthRoutes();
+//Lva::registerAuthRoutes();
 
 Route::group([
     'prefix'        => config('admin.route.prefix'),
