@@ -75,8 +75,8 @@ class WeChatController extends Controller
     {
         $url = Input::get('url');
         $url = $url ? $url : '/admin/tasks';
-        $wxUser = session('wechat.oauth_user.default');
-        $openId = $wxUser ? $wxUser->attributes['id'] : null;
+        $wxUser = session('wechat.oauth_user');
+        $openId = $wxUser ? $wxUser->getId() : '99999';
         $user = Administrator::where('wechat_id',$openId)->first();
         if (empty($user)) {
             return redirect($url);
