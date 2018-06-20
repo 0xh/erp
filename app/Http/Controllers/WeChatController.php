@@ -64,8 +64,8 @@ class WeChatController extends Controller
 
     public function getOpenId()
     {
-        $oauth = $this->wechat->oauth->user();
-        dd($oauth);
+        $wxUser = session('wechat.oauth_user.default');
+        dd($wxUser->getId());
 //        return $oauth;
 //        $openPlatform = EasyWeChat::openPlatform();
 //        app('wechat.open_platform')->getPreAuthorizationUrl(env('APP_URL').'/wechat/login');
@@ -75,7 +75,7 @@ class WeChatController extends Controller
     {
         $url = Input::get('url');
         $url = $url ? $url : '/admin/tasks';
-        $wxUser = session('wechat.oauth_user');
+        $wxUser = session('wechat.oauth_user.default');
         $openId = $wxUser ? $wxUser->getId() : '99999';
         $user = Administrator::where('wechat_id',$openId)->first();
         if (empty($user)) {
